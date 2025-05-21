@@ -32,10 +32,7 @@ pkgver() {
 
 prepare() {
     cd "${srcdir}/${_pkgname}"
-    sed -i '/if(BUILD_OUT_OF_TREE)/, /endif()/ {
-      /^[ \t]*find_qt(COMPONENTS Widgets Core)[ \t]*$/d
-      /^[ \t]*else()[ \t]*$/d
-    }' CMakeLists.txt
+    sed -i '29,30d' CMakeLists.txt
 }
 
 build() {
@@ -46,8 +43,8 @@ build() {
 
 package() {
     _prjdir="${srcdir}/${_pkgname}"
-    install -D -m755 "${_prjdir}/build/vertical-canvas.so" "${pkgdir}/usr/lib/obs-plugins/aitum-vertical-canvas.so"
+    install -D -m755 "${_prjdir}/build/aitum-multistream.so" "${pkgdir}/usr/lib/obs-plugins/aitum-multistream.so"
     install -D -m644 "${_prjdir}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-    mkdir -p "${pkgdir}/usr/share/obs/obs-plugins/aitum-vertical-canvas"
-    cp -r "${_prjdir}/data/locale" "${pkgdir}/usr/share/obs/obs-plugins/aitum-vertical-canvas/locale"
+    mkdir -p "${pkgdir}/usr/share/obs/obs-plugins/aitum-multistream"
+    cp -r "${_prjdir}/data/locale" "${pkgdir}/usr/share/obs/obs-plugins/aitum-multistream/locale"
 }
